@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel B - Coastal Luxury</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 30%, #80deea 70%, #4dd0e1 100%);
+            min-height: 100vh;
+            color: #1a3a4a;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated wave background */
+        .waves {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.3' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") repeat-x;
+            background-size: 50% 100%;
+            animation: wave 15s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            bottom: 10px;
+            opacity: 0.5;
+            animation: wave 12s linear infinite reverse;
+        }
+
+        .wave:nth-child(3) {
+            bottom: 20px;
+            opacity: 0.3;
+            animation: wave 20s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Floating bubbles */
+        .bubbles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+            border-radius: 50%;
+            animation: rise 10s infinite ease-in;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(2, 119, 189, 0.2);
+            border-radius: 50px;
+            padding: 10px 24px;
+            margin-bottom: 25px;
+            animation: fadeInDown 0.8s ease-out;
+            box-shadow: 0 4px 20px rgba(2, 119, 189, 0.15);
+        }
+
+        .badge-icon {
+            font-size: 18px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .badge span {
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #0277bd;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 600;
+            margin-bottom: 15px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            color: #01579b;
+            text-shadow: 2px 4px 20px rgba(2, 119, 189, 0.2);
+        }
+
+        h1 .highlight {
+            background: linear-gradient(135deg, #0288d1, #00acc1, #26c6da);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #0277bd;
+            opacity: 0.8;
+            max-width: 500px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            font-weight: 300;
+        }
+
+        .decorative-line {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #0288d1, transparent);
+            margin: 30px auto;
+            border-radius: 3px;
+            animation: expandLine 1s ease-out 0.6s both;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 100px; opacity: 1; }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 20px 120px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Rooms Grid */
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Room Card */
+        .room-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 40px rgba(2, 119, 189, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: cardReveal 0.7s ease-out forwards;
+            position: relative;
+        }
+
+        .room-card:nth-child(1) { animation-delay: 0.1s; }
+        .room-card:nth-child(2) { animation-delay: 0.15s; }
+        .room-card:nth-child(3) { animation-delay: 0.2s; }
+        .room-card:nth-child(4) { animation-delay: 0.25s; }
+        .room-card:nth-child(5) { animation-delay: 0.3s; }
+        .room-card:nth-child(6) { animation-delay: 0.35s; }
+        .room-card:nth-child(7) { animation-delay: 0.4s; }
+        .room-card:nth-child(8) { animation-delay: 0.45s; }
+        .room-card:nth-child(9) { animation-delay: 0.5s; }
+        .room-card:nth-child(10) { animation-delay: 0.55s; }
+
+        @keyframes cardReveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .room-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+            z-index: 10;
+        }
+
+        .room-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 
+                0 25px 60px rgba(2, 119, 189, 0.25),
+                0 0 0 2px rgba(2, 136, 209, 0.3);
+        }
+
+        .room-card:hover::before {
+            left: 100%;
+        }
+
+        /* Image container */
+        .image-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .room-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .room-card:hover .room-image {
+            transform: scale(1.12);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Price tag */
+        .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #0288d1, #00acc1);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(2, 136, 209, 0.4);
+            z-index: 5;
+            transition: all 0.3s;
+        }
+
+        .room-card:hover .price-tag {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(2, 136, 209, 0.5);
+        }
+
+        /* Room info */
+        .room-info {
+            padding: 20px 25px 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .room-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #01579b;
+            transition: all 0.3s;
+        }
+
+        .room-card:hover .room-info h3 {
+            background: linear-gradient(135deg, #0288d1, #00acc1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .price {
+            color: #0277bd;
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .price span {
+            font-size: 0.85rem;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        /* Availability button */
+        .availability-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            border: 2px solid #0288d1;
+            border-radius: 50px;
+            color: #0277bd;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .availability-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #0288d1, #00acc1);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+
+        .availability-btn:hover {
+            color: white;
+            border-color: transparent;
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(2, 136, 209, 0.4);
+        }
+
+        .availability-btn:hover::before {
+            opacity: 1;
+        }
+
+        .availability-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px 40px;
+            color: #0277bd;
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .rooms-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            header {
+                padding: 40px 20px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .rooms-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated waves -->
+    <div class="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- Bubbles -->
+    <div class="bubbles" id="bubbles"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="badge">
+            <span class="badge-icon">🌊</span>
+            <span>Coastal Paradise</span>
+        </div>
+        <h1>Hotel <span class="highlight">Oceana</span></h1>
+        <p class="subtitle">Where luxury meets the sea. Discover tranquility in our coastal retreat.</p>
+        <div class="decorative-line"></div>
+    </header>
+
+    <!-- Rooms -->
+    <div class="container">
+        <div class="rooms-grid">
+            <div class="room-card">
+                <div class="image-container">
+                    <img class="room-image" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=640&q=80" alt="Presidential Room">
+                    <div class="image-overlay"></div>
+                    <div class="price-tag">$400</div>
+                </div>
+                <div class="room-info">
+                    <h3>Presidential Room</h3>
+                    <div class="price">$400 <span>/night</span></div>
+                    <button class="availability-btn" onclick="showAvailability('Presidential Room', 400)">Check Availability</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="image-container">
+                    <img class="room-image" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=640&q=80" alt="King Suite">
+                    <div class="image-overlay"></div>
+                    <div class="price-tag">$320</div>
+                </div>
+                <div class="room-info">
+                    <h3>King Suite</h3>
+                    <div class="price">$320 <span>/night</span></div>
+                    <button class="availability-btn" onclick="showAvailability('King Suite', 320)">Check Availability</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="image-container">
+                    <img class="room-image" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=640&q=80" alt="Luxury Room">
+                    <div class="image-overlay"></div>
+                    <div class="price-tag">$300</div>
+                </div>
+                <div class="room-info">
+                    <h3>Luxury Room</h3>
+                    <div class="price">$300 <span>/night</span></div>
+                    <button class="availability-btn" onclick="showAvailability('Luxury Room', 300)">Check Availability</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="image-container">
+                    <img class="room-image" src="https://images.unsplash.com/photo-1568495248636-6432b97bd949?w=640&q=80" alt="Standard Room">
+                    <div class="image-overlay"></div>
+                    <div class="price-tag">$90</div>
+                </div>
+                <div class="room-info">
+                    <h3>Standard Room</h3>
+                    <div class="price">$90 <span>/night</span></div>
+                    <button class="availability-btn" onclick="showAvailability('Standard Room', 90)">Check Availability</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="image-container">
+                    <img class="room-image" src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=640&q=80" alt="Family Suite">
+                    <div class="image-overlay"></div>
+                    <div class="price-tag">$250</div>
+                </div>
+                <div class="room-info">
+                    <h3>Family Suite</h3>
+                    <div class="price">$250 <span>/night</span></div>
+                    <button class="availability-btn" onclick="showAvailability('Family Suite', 250)">Check Availability</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="image-container">
+                    <img class="room-image" src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=640&q=80" alt="Single Room">
+                    <div class="image-overlay"></div>
+                    <div class="price-tag">$65</div>
+                </div>
+                <div class="room-info">
+                    <h3>Single Room</h3>
+                    <div class="price">$65 <span>/night</span></div>
+                    <button class="availability-btn" onclick="showAvailability('Single Room', 65)">Check Availability</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="image-container">
+                    <img class="room-image" src="https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=640&q=80" alt="Double Room">
+                    <div class="image-overlay"></div>
+                    <div class="price-tag">$110</div>
+                </div>
+                <div class="room-info">
+                    <h3>Double Room</h3>
+                    <div class="price">$110 <span>/night</span></div>
+                    <button class="availability-btn" onclick="showAvailability('Double Room', 110)">Check Availability</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="image-container">
+                    <img class="room-image" src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=640&q=80" alt="Queen Suite">
+                    <div class="image-overlay"></div>
+                    <div class="price-tag">$180</div>
+                </div>
+                <div class="room-info">
+                    <h3>Queen Suite</h3>
+                    <div class="price">$180 <span>/night</span></div>
+                    <button class="availability-btn" onclick="showAvailability('Queen Suite', 180)">Check Availability</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="image-container">
+                    <img class="room-image" src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=640&q=80" alt="Suite Room">
+                    <div class="image-overlay"></div>
+                    <div class="price-tag">$210</div>
+                </div>
+                <div class="room-info">
+                    <h3>Suite Room</h3>
+                    <div class="price">$210 <span>/night</span></div>
+                    <button class="availability-btn" onclick="showAvailability('Suite Room', 210)">Check Availability</button>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="image-container">
+                    <img class="room-image" src="https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=640&q=80" alt="Economy Room">
+                    <div class="image-overlay"></div>
+                    <div class="price-tag">$70</div>
+                </div>
+                <div class="room-info">
+                    <h3>Economy Room</h3>
+                    <div class="price">$70 <span>/night</span></div>
+                    <button class="availability-btn" onclick="showAvailability('Economy Room', 70)">Check Availability</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Hotel Oceana. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Original function - unchanged
+        function showAvailability(roomName, price) {
+            alert(roomName + " is available at $" + price + " per night!");
+        }
+
+        // Create floating bubbles
+        function createBubbles() {
+            const container = document.getElementById('bubbles');
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 20 + 10;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = Math.random() * 100 + '%';
+                bubble.style.animationDelay = Math.random() * 10 + 's';
+                bubble.style.animationDuration = (10 + Math.random() * 10) + 's';
+                container.appendChild(bubble);
+            }
+        }
+
+        createBubbles();
+    </script>
+</body>
+</html>
